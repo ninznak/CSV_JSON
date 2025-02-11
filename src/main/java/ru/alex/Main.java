@@ -19,10 +19,8 @@ public class Main {
     public static void main(String[] args) {
 
         String fileName = "data.csv";
-
         String[] columnMapping = {"id", "firstName", "lastName", "country", "age"};
         List<Employee> employees = parseCSV(columnMapping, fileName);
-        System.out.println(employees);
         String json = listToJson(employees);
         writeString(json);
     }
