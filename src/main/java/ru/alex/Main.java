@@ -2,6 +2,8 @@ package ru.alex;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.opencsv.CSVReader;
 import com.opencsv.bean.ColumnPositionMappingStrategy;
@@ -104,10 +106,17 @@ public class Main {
     }
 
     public static List<Employee> jsonToList(String inputString) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        Type employeeListType = new TypeToken<List<Employee>>() {
-        }.getType();
-        return gson.fromJson(inputString, employeeListType);
+
+        List<Employee> employees = new ArrayList<>();
+        JsonParser parser = new JsonParser();
+        JsonArray jsonArray= parser.parse(inputString).getAsJsonArray();
+        Gson gson = new GsonBuilder().create();
+
+        for (int i = 0; i < jsonArray.size(); i++) {
+            Employee employee = gson.fromJson(jsonArray.get(i), Employee.class);
+            employees.add(employee);
+        }
+        return employees;
     }
 
     public static String listToJson(List<Employee> employees) {
