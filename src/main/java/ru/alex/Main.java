@@ -100,14 +100,14 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return sb.toString().trim();
+        return sb.toString();
     }
 
-    public static List<Employee> jsonToList(String source) {
+    public static List<Employee> jsonToList(String inputString) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         Type employeeListType = new TypeToken<List<Employee>>() {
         }.getType();
-        return gson.fromJson(source, employeeListType);
+        return gson.fromJson(inputString, employeeListType);
     }
 
     public static String listToJson(List<Employee> employees) {
